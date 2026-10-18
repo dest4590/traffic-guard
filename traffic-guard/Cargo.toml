@@ -1,0 +1,34 @@
+[package]
+name = "traffic-guard"
+version = "0.1.0"
+edition.workspace = true
+
+license.workspace = true
+
+[dependencies]
+traffic-guard-common = { path = "../traffic-guard-common", features = ["user"] }
+
+anyhow = { workspace = true, default-features = true }
+aya = { workspace = true }
+aya-log = { workspace = true }
+env_logger = { workspace = true }
+libc = { workspace = true }
+log = { workspace = true }
+tokio = { workspace = true, features = [
+    "macros",
+    "rt",
+    "rt-multi-thread",
+    "net",
+    "signal",
+    "time",
+] }
+clap = { workspace = true, features = ["derive", "help", "usage"] }
+[build-dependencies]
+anyhow = { workspace = true }
+aya-build = { workspace = true }
+cargo_metadata = { workspace = true }
+traffic-guard-ebpf = { path = "../traffic-guard-ebpf" }
+
+[[bin]]
+name = "traffic-guard"
+path = "src/main.rs"

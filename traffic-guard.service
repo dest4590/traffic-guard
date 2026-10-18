@@ -1,0 +1,15 @@
+[Unit]
+Description=Traffic Guard eBPF Rate Limiter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/traffic-guard -i eth0 --limit-gb 85 --release-gb 75 --rate-mbps 9 --window-mins 60 --direction both --poll-secs 5 --status-file /var/run/traffic-guard.status
+Restart=always
+RestartSec=5
+LimitMEMLOCK=infinity
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_BPF CAP_PERFMON CAP_SYS_RESOURCE
+AmbientCapabilities=CAP_NET_ADMIN CAP_BPF CAP_PERFMON CAP_SYS_RESOURCE
+
+[Install]
+WantedBy=multi-user.target
